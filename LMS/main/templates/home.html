@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LMS - Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+</head>
+<body class="bg-gray-100 font-sans">
+    <header class="bg-green-500 text-white text-center py-4">
+        <h1 class="text-2xl font-bold">Library Management System</h1>
+    </header>
+    <main class="max-w-4xl mx-auto py-8 px-4">
+        <section class="hero text-center mb-8">
+            <h2 class="text-3xl font-bold mb-4">Welcome to the Library Management System</h2>
+            <p class="text-lg mb-6">Manage your books, borrow, and return with ease.</p>
+            <a href="{% url 'login' %}" class="inline-block bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 mr-4">Login</a>
+            <a href="{% url 'register' %}" class="inline-block bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">Register</a>
+        </section>
+        <section class="features grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="feature bg-white p-6 rounded-lg shadow-md text-center">
+                <h3 class="text-xl font-bold mb-2">Browse Books</h3>
+                <p class="mb-4">Explore our collection of books by category, author, or title.</p>
+                <a href="{% url 'book_list' %}" class="inline-block bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">View Books</a>
+            </div>
+            <div class="feature bg-white p-6 rounded-lg shadow-md text-center">
+                <h3 class="text-xl font-bold mb-2">Borrow Books</h3>
+                <p class="mb-4">Borrow books easily and keep track of your due dates.</p>
+                <a href="{% url 'profile' %}" class="inline-block bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">My Profile</a>
+            </div>
+            <div class="feature bg-white p-6 rounded-lg shadow-md text-center">
+                <h3 class="text-xl font-bold mb-2">Admin Dashboard</h3>
+                <p class="mb-4">Manage the library as an administrator.</p>
+                <a href="{% url 'admin_dashboard' %}" class="inline-block bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">Dashboard</a>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-gray-200 text-center py-4 mt-8">
+        <p>&copy; 2023 Library Management System</p>
+    </footer>
+</body>
+</html>

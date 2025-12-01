@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - LMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+</head>
+<body class="bg-gray-100 font-sans">
+    <header class="bg-green-500 text-white text-center py-4">
+        <h1 class="text-2xl font-bold">Library Management System</h1>
+        <nav class="mt-2">
+            <a href="{% url 'home' %}" class="text-white hover:underline mx-2">Home</a>
+            <a href="{% url 'book_list' %}" class="text-white hover:underline mx-2">Books</a>
+            <a href="{% url 'logout' %}" class="text-white hover:underline mx-2">Logout</a>
+        </nav>
+    </header>
+    <main class="max-w-4xl mx-auto py-8 px-4">
+        <h2 class="text-2xl font-bold mb-6">Your Profile</h2>
+        <h3 class="text-xl font-bold mb-4">Borrowed Books</h3>
+        {% if borrowed_books %}
+            <ul class="space-y-4">
+                {% for record in borrowed_books %}
+                    <li class="bg-white p-4 rounded-lg shadow-md flex justify-between items-center">
+                        <div>
+                            <strong class="text-lg">{{ record.book.title }}</strong> by {{ record.book.author.name }}
+                            <br>
+                            <span class="text-sm text-gray-600">Borrowed on: {{ record.borrow_date }}</span>
+                        </div>
+                        <a href="{% url 'return_book' record.pk %}" class="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600">Return</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-center text-gray-500">You have no borrowed books.</p>
+        {% endif %}
+    </main>
+    <footer class="bg-gray-200 text-center py-4 mt-8">
+        <p>&copy; 2023 Library Management System</p>
+    </footer>
+</body>
+</html>

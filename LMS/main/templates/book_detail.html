@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ book.title }} - LMS</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+</head>
+<body class="bg-gray-100 font-sans">
+    <header class="bg-green-500 text-white text-center py-4">
+        <h1 class="text-2xl font-bold">Library Management System</h1>
+        <nav class="mt-2">
+            <a href="{% url 'home' %}" class="text-white hover:underline mx-2">Home</a>
+            <a href="{% url 'book_list' %}" class="text-white hover:underline mx-2">Books</a>
+            <a href="{% url 'profile' %}" class="text-white hover:underline mx-2">Profile</a>
+            <a href="{% url 'logout' %}" class="text-white hover:underline mx-2">Logout</a>
+        </nav>
+    </header>
+    <main class="max-w-4xl mx-auto py-8 px-4">
+        <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold mb-4">{{ book.title }}</h2>
+            <p class="mb-2"><strong>Author:</strong> {{ book.author.name }}</p>
+            <p class="mb-2"><strong>Category:</strong> {{ book.category.name }}</p>
+            <p class="mb-2"><strong>ISBN:</strong> {{ book.isbn }}</p>
+            <p class="mb-2"><strong>Published Date:</strong> {{ book.published_date }}</p>
+            <p class="mb-2"><strong>Copies Available:</strong> {{ book.copies_available }}</p>
+            {% if book.description %}
+                <p class="mb-4"><strong>Description:</strong> {{ book.description }}</p>
+            {% endif %}
+            {% if can_borrow %}
+                <a href="{% url 'borrow_book' book.pk %}" class="inline-block bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">Borrow Book</a>
+            {% else %}
+                <p class="text-red-600 font-bold">Book not available for borrowing</p>
+            {% endif %}
+        </div>
+    </main>
+    <footer class="bg-gray-200 text-center py-4 mt-8">
+        <p>&copy; 2023 Library Management System</p>
+    </footer>
+</body>
+</html>
