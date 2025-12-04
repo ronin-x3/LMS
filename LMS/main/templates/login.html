@@ -1,44 +1,78 @@
+<!-- Load static files for CSS -->
 {% load static %}
+
+<!-- Standard HTML5 document structure -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Basic meta tags for character encoding and responsiveness -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Page title -->
     <title>Login - LMS</title>
+
+    <!-- Include Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Link to custom CSS file -->
     <link rel="stylesheet" href="{% static 'home.css' %}">
 </head>
+
 <body class="bg-gray-100 font-sans">
+    <!-- Header section with site title and navigation -->
     <header class="bg-green-500 text-white text-center py-4">
         <h1 class="text-2xl font-bold">Library Management System</h1>
+        <!-- Navigation menu -->
         <nav class="mt-2">
+            <!-- Links to home and register pages using Django URL template tags -->
             <a href="{% url 'home' %}" class="text-white hover:underline mx-2">Home</a>
             <a href="{% url 'register' %}" class="text-white hover:underline mx-2">Register</a>
         </nav>
     </header>
+
+    <!-- Main content area -->
     <main class="max-w-4xl mx-auto py-8 px-4">
+        <!-- Login form container -->
         <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+            <!-- Login heading -->
             <h2 class="text-xl font-bold text-center mb-4">Login</h2>
+
+            <!-- Display any Django messages (e.g., error messages) -->
             {% if messages %}
                 {% for message in messages %}
+                    <!-- Conditional styling based on message type -->
                     <p class="mb-4 p-2 rounded {% if message.tags == 'success' %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %}">{{ message }}</p>
                 {% endfor %}
             {% endif %}
+
+            <!-- Login form -->
             <form method="post" class="space-y-4">
+                <!-- CSRF token for security -->
                 {% csrf_token %}
+
+                <!-- Username input field -->
                 <div>
                     <label for="username" class="block text-sm font-medium text-gray-700">Username:</label>
                     <input type="text" id="username" name="username" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
                 </div>
+
+                <!-- Password input field -->
                 <div>
                     <label for="password" class="block text-sm font-medium text-gray-700">Password:</label>
                     <input type="password" id="password" name="password" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
                 </div>
+
+                <!-- Submit button -->
                 <button type="submit" class="w-full bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">Login</button>
             </form>
+
+            <!-- Link to registration page for new users -->
             <p class="mt-4 text-center text-sm text-gray-600">Don't have an account? <a href="{% url 'register' %}" class="text-green-500 hover:underline">Register here</a></p>
         </div>
     </main>
+
+    <!-- Footer with copyright information -->
     <footer class="bg-gray-200 text-center py-4 mt-8">
         <p>&copy; 2023 Library Management System</p>
     </footer>

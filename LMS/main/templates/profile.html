@@ -1,42 +1,76 @@
+<!-- Load static files for CSS -->
 {% load static %}
+
+<!-- Standard HTML5 document structure -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Basic meta tags for character encoding and responsiveness -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Page title -->
     <title>Profile - LMS</title>
+
+    <!-- Include Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Link to custom CSS file -->
     <link rel="stylesheet" href="{% static 'home.css' %}">
 </head>
+
 <body class="bg-gray-100 font-sans">
+    <!-- Header section with site title and navigation -->
     <header class="bg-green-500 text-white text-center py-4">
         <h1 class="text-2xl font-bold">Library Management System</h1>
+        <!-- Navigation menu -->
         <nav class="mt-2">
             <a href="{% url 'home' %}" class="text-white hover:underline mx-2">Home</a>
             <a href="{% url 'book_list' %}" class="text-white hover:underline mx-2">Books</a>
-            <a href="{% url 'logout' %}" class="text-white hover:underline mx-2">Logout</a>
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'profile' %}" class="text-white hover:underline mx-2">Profile</a>
+                <a href="{% url 'logout' %}" class="text-white hover:underline mx-2">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="text-white hover:underline mx-2">Login</a>
+                <a href="{% url 'register' %}" class="text-white hover:underline mx-2">Register</a>
+            {% endif %}
         </nav>
     </header>
+
+    <!-- Main content area -->
     <main class="max-w-4xl mx-auto py-8 px-4">
+        <!-- Profile heading -->
         <h2 class="text-2xl font-bold mb-6">Your Profile</h2>
+
+        <!-- Borrowed books section -->
         <h3 class="text-xl font-bold mb-4">Borrowed Books</h3>
+
+        <!-- Conditional display of borrowed books list -->
         {% if borrowed_books %}
+            <!-- List of borrowed books -->
             <ul class="space-y-4">
                 {% for record in borrowed_books %}
+                    <!-- Individual book item with return button -->
                     <li class="bg-white p-4 rounded-lg shadow-md flex justify-between items-center">
                         <div>
+                            <!-- Book title and author -->
                             <strong class="text-lg">{{ record.book.title }}</strong> by {{ record.book.author.name }}
                             <br>
+                            <!-- Borrow date -->
                             <span class="text-sm text-gray-600">Borrowed on: {{ record.borrow_date }}</span>
                         </div>
+                        <!-- Return book link -->
                         <a href="{% url 'return_book' record.pk %}" class="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600">Return</a>
                     </li>
                 {% endfor %}
             </ul>
         {% else %}
+            <!-- Message if no borrowed books -->
             <p class="text-center text-gray-500">You have no borrowed books.</p>
         {% endif %}
     </main>
+
+    <!-- Footer with copyright information -->
     <footer class="bg-gray-200 text-center py-4 mt-8">
         <p>&copy; 2023 Library Management System</p>
     </footer>

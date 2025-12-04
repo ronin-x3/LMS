@@ -1,19 +1,14 @@
-# TODO: Integrate Tailwind CSS into Django LMS Website
+# TODO: Make HTML Templates Look Human-Written
 
-- [x] Read all template files to understand current structure
-- [x] Add Tailwind CSS CDN to home.html
-- [x] Update HTML classes in home.html to use Tailwind utilities
-- [x] Add Tailwind CSS CDN to book_list.html
-- [x] Update HTML classes in book_list.html to use Tailwind utilities
-- [x] Add Tailwind CSS CDN to login.html
-- [x] Update HTML classes in login.html to use Tailwind utilities
-- [x] Add Tailwind CSS CDN to register.html
-- [x] Update HTML classes in register.html to use Tailwind utilities
-- [x] Add Tailwind CSS CDN to profile.html
-- [x] Update HTML classes in profile.html to use Tailwind utilities
-- [x] Add Tailwind CSS CDN to book_detail.html
-- [x] Update HTML classes in book_detail.html to use Tailwind utilities
-- [x] Add Tailwind CSS CDN to borrow.html
-- [x] Update HTML classes in borrow.html to use Tailwind utilities
-- [x] Modify or remove conflicting styles in home.css
-- [x] Test the website by running Django server
+## Overview
+Refactor HTML templates in the LMS project to appear more human-written by adding comments, improving indentation, and enhancing readability.
+
+## Steps
+- [x] Read and edit main/templates/home.html: Add section comments, improve formatting, add Django template comments.
+- [x] Read and edit main/templates/book_detail.html: Add section comments, improve formatting, add Django template comments.
+- [x] Read and edit main/templates/book_list.html: Add section comments, improve formatting, add Django template comments.
+- [ ] Read and edit main/templates/login.html: Add section comments, improve formatting, add Django template comments.
+- [ ] Read and edit main/templates/profile.html: Add section comments, improve formatting, add Django template comments.
+- [ ] Read and edit main/templates/register.html: Add section comments, improve formatting, add Django template comments.
+- [ ] Read and edit main/templates/borrow.html: Add section comments, improve formatting, add Django template comments.
+- [x] Verify all changes and ensure templates still function correctly.

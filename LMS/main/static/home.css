@@ -1,6 +1,5 @@
-/* Basic styles for LMS home page - Commented out to avoid conflicts with Tailwind CSS */
+/* Basic styles for LMS home page */
 
-/*
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -55,7 +54,7 @@ footer {
 }
 
 /* Additional styles for forms and other elements */
-/*
+
 .form-container {
     max-width: 400px;
     margin: 0 auto;
@@ -210,4 +209,3 @@ footer {
 .borrowed-list li:last-child {
     border-bottom: none;
 }
-*/

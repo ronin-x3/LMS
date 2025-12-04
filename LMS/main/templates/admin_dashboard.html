@@ -1,0 +1,202 @@
+<!-- Load static files for CSS -->
+{% load static %}
+
+<!-- Standard HTML5 document structure -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic meta tags for character encoding and responsiveness -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Page title -->
+    <title>Admin Dashboard - LMS</title>
+
+    <!-- Include Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Link to custom CSS file -->
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+</head>
+
+<body class="bg-gray-100 font-sans">
+    <!-- Header section with site title and navigation -->
+    <header class="bg-green-500 text-white text-center py-4">
+        <h1 class="text-2xl font-bold">Library Management System - Admin Dashboard</h1>
+        <!-- Navigation menu -->
+        <nav class="mt-2">
+            <a href="{% url 'home' %}" class="text-white hover:underline mx-2">Home</a>
+            <a href="{% url 'book_list' %}" class="text-white hover:underline mx-2">Books</a>
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'profile' %}" class="text-white hover:underline mx-2">Profile</a>
+                <a href="{% url 'logout' %}" class="text-white hover:underline mx-2">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="text-white hover:underline mx-2">Login</a>
+                <a href="{% url 'register' %}" class="text-white hover:underline mx-2">Register</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <!-- Main content area -->
+    <main class="max-w-6xl mx-auto py-8 px-4">
+        <!-- Dashboard heading -->
+        <h2 class="text-3xl font-bold mb-6">Admin Dashboard</h2>
+
+        <!-- Statistics section -->
+        <section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <!-- Total Books -->
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <h3 class="text-xl font-bold mb-2">Total Books</h3>
+                <p class="text-2xl font-bold text-green-600">{{ books|length }}</p>
+            </div>
+
+            <!-- Total Authors -->
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <h3 class="text-xl font-bold mb-2">Total Authors</h3>
+                <p class="text-2xl font-bold text-blue-600">{{ authors|length }}</p>
+            </div>
+
+            <!-- Total Categories -->
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <h3 class="text-xl font-bold mb-2">Total Categories</h3>
+                <p class="text-2xl font-bold text-purple-600">{{ categories|length }}</p>
+            </div>
+
+            <!-- Total Borrow Records -->
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <h3 class="text-xl font-bold mb-2">Total Borrow Records</h3>
+                <p class="text-2xl font-bold text-red-600">{{ borrow_records|length }}</p>
+            </div>
+        </section>
+
+        <!-- Books section -->
+        <section class="mb-8">
+            <h3 class="text-2xl font-bold mb-4">Books</h3>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <table class="w-full table-auto">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="px-4 py-2 text-left">Title</th>
+                            <th class="px-4 py-2 text-left">Author</th>
+                            <th class="px-4 py-2 text-left">Category</th>
+                            <th class="px-4 py-2 text-left">Copies Available</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for book in books %}
+                            <tr class="border-b">
+                                <td class="px-4 py-2">{{ book.title }}</td>
+                                <td class="px-4 py-2">{{ book.author.name }}</td>
+                                <td class="px-4 py-2">{{ book.category.name }}</td>
+                                <td class="px-4 py-2">{{ book.copies_available }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="4" class="px-4 py-2 text-center">No books found.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Authors section -->
+        <section class="mb-8">
+            <h3 class="text-2xl font-bold mb-4">Authors</h3>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <table class="w-full table-auto">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="px-4 py-2 text-left">Name</th>
+                            <th class="px-4 py-2 text-left">Bio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for author in authors %}
+                            <tr class="border-b">
+                                <td class="px-4 py-2">{{ author.name }}</td>
+                                <td class="px-4 py-2">{{ author.bio|truncatechars:100 }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="2" class="px-4 py-2 text-center">No authors found.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Categories section -->
+        <section class="mb-8">
+            <h3 class="text-2xl font-bold mb-4">Categories</h3>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <table class="w-full table-auto">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="px-4 py-2 text-left">Name</th>
+                            <th class="px-4 py-2 text-left">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for category in categories %}
+                            <tr class="border-b">
+                                <td class="px-4 py-2">{{ category.name }}</td>
+                                <td class="px-4 py-2">{{ category.description|truncatechars:100 }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="2" class="px-4 py-2 text-center">No categories found.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Borrow Records section -->
+        <section class="mb-8">
+            <h3 class="text-2xl font-bold mb-4">Borrow Records</h3>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <table class="w-full table-auto">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="px-4 py-2 text-left">User</th>
+                            <th class="px-4 py-2 text-left">Book</th>
+                            <th class="px-4 py-2 text-left">Borrow Date</th>
+                            <th class="px-4 py-2 text-left">Due Date</th>
+                            <th class="px-4 py-2 text-left">Returned</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for record in borrow_records %}
+                            <tr class="border-b">
+                                <td class="px-4 py-2">{{ record.user.username }}</td>
+                                <td class="px-4 py-2">{{ record.book.title }}</td>
+                                <td class="px-4 py-2">{{ record.borrow_date|date:"M d, Y" }}</td>
+                                <td class="px-4 py-2">{{ record.due_date|date:"M d, Y" }}</td>
+                                <td class="px-4 py-2">
+                                    {% if record.is_returned %}
+                                        <span class="text-green-600 font-bold">Yes</span>
+                                    {% else %}
+                                        <span class="text-red-600 font-bold">No</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="5" class="px-4 py-2 text-center">No borrow records found.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer with copyright information -->
+    <footer class="bg-gray-200 text-center py-4 mt-8">
+        <p>&copy; 2023 Library Management System</p>
+    </footer>
+</body>
+</html>

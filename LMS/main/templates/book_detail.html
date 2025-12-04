@@ -1,40 +1,70 @@
+<!-- Load static files for CSS -->
 {% load static %}
+
+<!-- Standard HTML5 document structure -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Basic meta tags for character encoding and responsiveness -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Dynamic page title using Django template variable -->
     <title>{{ book.title }} - LMS</title>
+
+    <!-- Link to custom CSS file -->
     <link rel="stylesheet" href="{% static 'home.css' %}">
 </head>
+
 <body class="bg-gray-100 font-sans">
+    <!-- Header section with site title and navigation -->
     <header class="bg-green-500 text-white text-center py-4">
         <h1 class="text-2xl font-bold">Library Management System</h1>
+        <!-- Navigation menu -->
         <nav class="mt-2">
             <a href="{% url 'home' %}" class="text-white hover:underline mx-2">Home</a>
             <a href="{% url 'book_list' %}" class="text-white hover:underline mx-2">Books</a>
-            <a href="{% url 'profile' %}" class="text-white hover:underline mx-2">Profile</a>
-            <a href="{% url 'logout' %}" class="text-white hover:underline mx-2">Logout</a>
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'profile' %}" class="text-white hover:underline mx-2">Profile</a>
+                <a href="{% url 'logout' %}" class="text-white hover:underline mx-2">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="text-white hover:underline mx-2">Login</a>
+                <a href="{% url 'register' %}" class="text-white hover:underline mx-2">Register</a>
+            {% endif %}
         </nav>
     </header>
+
+    <!-- Main content area -->
     <main class="max-w-4xl mx-auto py-8 px-4">
+        <!-- Book details container -->
         <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
+            <!-- Book title as main heading -->
             <h2 class="text-2xl font-bold mb-4">{{ book.title }}</h2>
+
+            <!-- Display book information -->
             <p class="mb-2"><strong>Author:</strong> {{ book.author.name }}</p>
             <p class="mb-2"><strong>Category:</strong> {{ book.category.name }}</p>
             <p class="mb-2"><strong>ISBN:</strong> {{ book.isbn }}</p>
             <p class="mb-2"><strong>Published Date:</strong> {{ book.published_date }}</p>
             <p class="mb-2"><strong>Copies Available:</strong> {{ book.copies_available }}</p>
+
+            <!-- Conditional display of book description if it exists -->
             {% if book.description %}
                 <p class="mb-4"><strong>Description:</strong> {{ book.description }}</p>
             {% endif %}
+
+            <!-- Conditional borrow button or availability message -->
             {% if can_borrow %}
+                <!-- Link to borrow the book -->
                 <a href="{% url 'borrow_book' book.pk %}" class="inline-block bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">Borrow Book</a>
             {% else %}
+                <!-- Message if book is not available -->
                 <p class="text-red-600 font-bold">Book not available for borrowing</p>
             {% endif %}
         </div>
     </main>
+
+    <!-- Footer with copyright information -->
     <footer class="bg-gray-200 text-center py-4 mt-8">
         <p>&copy; 2023 Library Management System</p>
     </footer>
