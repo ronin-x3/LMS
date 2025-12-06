@@ -17,67 +17,309 @@
 
     <!-- Link to custom CSS file -->
     <link rel="stylesheet" href="{% static 'home.css' %}">
+
+    <style>
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #4caf50 0%, #81c784 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .smooth-transition {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .stat-card {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(129, 199, 132, 0.05) 100%);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        .stat-card:hover {
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.15);
+            transform: translateY(-2px);
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+        .table-row {
+            border-b: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .table-row:hover {
+            background: rgba(76, 175, 80, 0.1);
+        }
+        .table-header {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.2) 0%, rgba(76, 175, 80, 0.1) 100%);
+            color: #4caf50;
+            font-weight: 700;
+        }
+    </style>
 </head>
 
-<body class="bg-gradient-to-br from-[#1a1535] to-purple-900 font-sans min-h-screen text-white">
-    <!-- Navigation bar with logo, links, and mobile menu -->
-    <nav class="bg-[#1a1535] bg-opacity-95 backdrop-blur-sm text-white py-4 px-6 flex items-center justify-between relative rounded-lg shadow-lg mx-4 mt-4">
-        <!-- Logo section with SVG icon and text -->
-        <div class="flex items-center">
-            <!-- Custom SVG logo for the LMS -->
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <!-- Gradient definition for the logo -->
-                    <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-                <!-- Diamond shape for the logo -->
-                <polygon points="16,4 28,16 16,28 4,16" fill="url(#purpleGradient)" />
-            </svg>
-            <!-- LMS text next to the logo -->
-            <span class="ml-2 text-xl font-bold"><a href="{% url 'home' %}" class="hover:text-gray-300 transition duration-200">LMS</a></span>
-        </div>
+<body class="bg-gradient-to-br from-[#0f1419] via-[#1a1a2e] to-[#16213e] font-sans min-h-screen text-white">
+    <!-- Navigation bar with glass morphism effect -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-effect mx-4 mt-4 rounded-2xl">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <!-- Logo section -->
+            <div class="flex items-center gap-3 group cursor-pointer">
+                <div class="relative w-10 h-10">
+                    <svg width="40" height="40" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="smooth-transition group-hover:scale-110">
+                        <defs>
+                            <linearGradient id="neonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#4caf50;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#81c784;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <polygon points="16,4 28,16 16,28 4,16" fill="url(#neonGradient)" />
+                    </svg>
+                </div>
+                <span class="text-2xl font-bold gradient-text smooth-transition"><a href="{% url 'home' %}" class="hover:opacity-80 transition duration-200">LMS</a></span>
+            </div>
 
-        <!-- Navigation links in the center (hidden on mobile) -->
-        <ul class="hidden md:flex space-x-6 absolute left-1/2 transform -translate-x-1/2">
-            <li><a href="{% url 'home' %}" class="hover:text-gray-300 transition duration-200">Home</a></li>
-            <li><a href="{% url 'book_list' %}" class="hover:text-gray-300 transition duration-200">Books</a></li>
-        </ul>
+            <!-- Center navigation links -->
+            <ul class="hidden md:flex gap-8 absolute left-1/2 transform -translate-x-1/2">
+                <li><a href="{% url 'home' %}" class="hover:text-[#4caf50] smooth-transition text-sm font-medium">Home</a></li>
+                <li><a href="{% url 'book_list' %}" class="hover:text-[#4caf50] smooth-transition text-sm font-medium">Books</a></li>
+            </ul>
 
-        <!-- Right side with login/register or profile/logout links -->
-        <div class="flex items-center space-x-4">
-            {% if request.user.is_authenticated %}
-                <a href="{% url 'profile' %}" class="hover:text-gray-300 transition duration-200">Profile</a>
-                <a href="{% url 'logout' %}" class="border border-white hover:bg-white hover:text-[#1a1535] px-4 py-2 rounded transition duration-200">Logout</a>
-            {% else %}
-                <!-- Link to login page using Django URL template tag -->
-                <a href="{% url 'login' %}" class="hover:text-gray-300 transition duration-200">Login</a>
-                <!-- Link to register page -->
-                <a href="{% url 'register' %}" class="border border-white hover:bg-white hover:text-[#1a1535] px-4 py-2 rounded transition duration-200">Register</a>
-            {% endif %}
-        </div>
+            <!-- Right side auth links -->
+            <div class="flex items-center gap-3">
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'profile' %}" class="hidden sm:inline-block hover:text-[#4caf50] smooth-transition text-sm font-medium">Profile</a>
+                    <a href="{% url 'logout' %}" class="px-4 py-2 rounded-lg bg-[#4caf50] hover:bg-[#45a049] text-white font-semibold smooth-transition text-sm">Logout</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="hidden sm:inline-block hover:text-[#4caf50] smooth-transition text-sm font-medium">Login</a>
+                    <a href="{% url 'register' %}" class="px-4 py-2 rounded-lg bg-[#4caf50] hover:bg-[#45a049] text-white font-semibold smooth-transition text-sm">Sign Up</a>
+                {% endif %}
+            </div>
 
-        <!-- Mobile menu button (visible only on small screens) -->
-        <div class="md:hidden">
-            <button class="text-white focus:outline-none">
-                <!-- Hamburger icon SVG -->
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </button>
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+                <button class="text-white focus:outline-none">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
         </div>
     </nav>
 
     <!-- Main content area -->
-    <main class="max-w-6xl mx-auto py-8 px-4">
-        <!-- Dashboard heading -->
-        <h2 class="text-3xl font-bold mb-6">Admin Dashboard</h2>
+    <main class="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <!-- Page header -->
+            <div class="mb-12 space-y-4">
+                <h1 class="text-4xl md:text-5xl font-bold">
+                    Admin <span class="gradient-text">Dashboard</span>
+                </h1>
+                <p class="text-gray-400 text-lg">System overview and statistics</p>
+            </div>
 
-        <!-- Quick link to Django admin site for full CRUD -->
-        <div class="mb-6">
-            <a href="{% url 'admin:index' %}" class="inline-block bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700">Open Django Admin</a>
+            <!-- Action buttons -->
+            <div class="mb-8 flex flex-wrap gap-4">
+                <a href="{% url 'admin:index' %}" class="px-6 py-3 bg-gradient-to-r from-[#4caf50] to-[#81c784] text-white font-semibold rounded-lg hover:shadow-lg smooth-transition">
+                    Open Django Admin
+                </a>
+                <a href="{% url 'book_list' %}" class="px-6 py-3 glass-effect text-white font-semibold rounded-lg hover:border-[#4caf50] smooth-transition">
+                    View Books
+                </a>
+            </div>
+
+            <!-- Statistics section -->
+            <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <!-- Total Books -->
+                <div class="stat-card rounded-2xl p-8 smooth-transition">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-gray-300 font-medium">Total Books</h3>
+                        <div class="w-12 h-12 bg-[#4caf50] rounded-lg flex items-center justify-center">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M6.5 2H20v15H6.5A2.5 2.5 0 0 1 4 14.5v-10A2.5 2.5 0 0 1 6.5 2z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-4xl font-bold">{{ books|length }}</p>
+                    <p class="text-gray-400 text-sm mt-2">Books in collection</p>
+                </div>
+
+                <!-- Total Authors -->
+                <div class="stat-card rounded-2xl p-8 smooth-transition">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-gray-300 font-medium">Total Authors</h3>
+                        <div class="w-12 h-12 bg-[#81c784] rounded-lg flex items-center justify-center">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="8" r="4" stroke="white" stroke-width="2"/>
+                                <path d="M 6 20 Q 6 14 12 14 Q 18 14 18 20" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-4xl font-bold">{{ authors|length }}</p>
+                    <p class="text-gray-400 text-sm mt-2">Contributors</p>
+                </div>
+
+                <!-- Total Categories -->
+                <div class="stat-card rounded-2xl p-8 smooth-transition">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-gray-300 font-medium">Total Categories</h3>
+                        <div class="w-12 h-12 bg-[#4caf50] rounded-lg flex items-center justify-center">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="3" y="3" width="7" height="7" stroke="white" stroke-width="2"/>
+                                <rect x="14" y="3" width="7" height="7" stroke="white" stroke-width="2"/>
+                                <rect x="3" y="14" width="7" height="7" stroke="white" stroke-width="2"/>
+                                <rect x="14" y="14" width="7" height="7" stroke="white" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-4xl font-bold">{{ categories|length }}</p>
+                    <p class="text-gray-400 text-sm mt-2">Genres</p>
+                </div>
+
+                <!-- Total Borrow Records -->
+                <div class="stat-card rounded-2xl p-8 smooth-transition">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-gray-300 font-medium">Active Borrows</h3>
+                        <div class="w-12 h-12 bg-[#81c784] rounded-lg flex items-center justify-center">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-4xl font-bold">{{ borrow_records|length }}</p>
+                    <p class="text-gray-400 text-sm mt-2">Borrow records</p>
+                </div>
+            </section>
+
+            <!-- Books section -->
+            <section class="mb-12">
+                <div class="mb-6">
+                    <h2 class="text-3xl font-bold">
+                        <span class="gradient-text">Books</span> Collection
+                    </h2>
+                </div>
+                <div class="glass-effect rounded-3xl overflow-hidden">
+                    {% if books %}
+                        <div class="table-container">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="table-header">
+                                        <th class="px-6 py-4 text-left">Title</th>
+                                        <th class="px-6 py-4 text-left">Author</th>
+                                        <th class="px-6 py-4 text-left">Category</th>
+                                        <th class="px-6 py-4 text-center">Copies Available</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for book in books %}
+                                        <tr class="table-row">
+                                            <td class="px-6 py-4 font-medium">{{ book.title }}</td>
+                                            <td class="px-6 py-4 text-gray-300">{{ book.author.name }}</td>
+                                            <td class="px-6 py-4 text-gray-300">{{ book.category.name }}</td>
+                                            <td class="px-6 py-4 text-center">
+                                                <span class="px-3 py-1 bg-[#4caf50] rounded-full text-sm font-semibold">{{ book.copies_available }}</span>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="p-12 text-center text-gray-400">
+                            <p>No books found in the system.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </section>
+
+            <!-- Authors section -->
+            <section class="mb-12">
+                <div class="mb-6">
+                    <h2 class="text-3xl font-bold">
+                        <span class="gradient-text">Authors</span> Registry
+                    </h2>
+                </div>
+                <div class="glass-effect rounded-3xl overflow-hidden">
+                    {% if authors %}
+                        <div class="table-container">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="table-header">
+                                        <th class="px-6 py-4 text-left">Name</th>
+                                        <th class="px-6 py-4 text-left">Bio</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for author in authors %}
+                                        <tr class="table-row">
+                                            <td class="px-6 py-4 font-medium">{{ author.name }}</td>
+                                            <td class="px-6 py-4 text-gray-300">{{ author.bio }}</td>
+                                        </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td colspan="2" class="px-6 py-4 text-center">No authors found.</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="p-12 text-center text-gray-400">
+                            <p>No authors found in the system.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </section>
+
+            <!-- Categories section -->
+            <section class="mb-12">
+                <div class="mb-6">
+                    <h2 class="text-3xl font-bold">
+                        <span class="gradient-text">Categories</span> List
+                    </h2>
+                </div>
+                <div class="glass-effect rounded-3xl overflow-hidden">
+                    {% if categories %}
+                        <div class="table-container">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="table-header">
+                                        <th class="px-6 py-4 text-left">Category Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for category in categories %}
+                                        <tr class="table-row">
+                                            <td class="px-6 py-4 font-medium">{{ category.name }}</td>
+                                        </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td class="px-6 py-4 text-center">No categories found.</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="p-12 text-center text-gray-400">
+                            <p>No categories found in the system.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-8 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto text-center text-sm text-gray-400">
+            <p>&copy; 2025 Library Management System. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
             <a href="{% url 'book_list' %}" class="inline-block bg-gray-200 text-gray-800 py-2 px-4 rounded-md ml-4">View Books</a>
         </div>
 
