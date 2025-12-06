@@ -87,16 +87,22 @@ footer {
 
 .form-container button {
     width: 100%;
-    padding: 0.75rem;
-    background-color: #4CAF50;
+    padding: 16px 40px;
+    background-color: #1a1a2e;
     color: white;
     border: none;
-    border-radius: 3px;
+    border-radius: 50px;
     cursor: pointer;
+    font-weight: 700;
+    font-size: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
 }
 
 .form-container button:hover {
-    background-color: #45a049;
+    background-color: #2d2d3f;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
 }
 
 .message {
@@ -146,16 +152,22 @@ footer {
 
 .btn {
     display: inline-block;
-    padding: 0.5rem 1rem;
-    background-color: #4CAF50;
+    padding: 16px 40px;
+    background-color: #1a1a2e;
     color: white;
     text-decoration: none;
-    border-radius: 3px;
+    border-radius: 50px;
     margin-top: 0.5rem;
+    font-weight: 700;
+    font-size: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
 }
 
 .btn:hover {
-    background-color: #45a049;
+    background-color: #2d2d3f;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
 }
 
 .unavailable {
@@ -184,16 +196,22 @@ footer {
 }
 
 .search-form button {
-    padding: 0.5rem 1rem;
-    background-color: #4CAF50;
+    padding: 16px 40px;
+    background-color: #1a1a2e;
     color: white;
     border: none;
-    border-radius: 3px;
+    border-radius: 50px;
     cursor: pointer;
+    font-weight: 700;
+    font-size: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
 }
 
 .search-form button:hover {
-    background-color: #45a049;
+    background-color: #2d2d3f;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
 }
 
 .borrowed-list {

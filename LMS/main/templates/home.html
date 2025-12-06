@@ -93,7 +93,11 @@
                 <h3 class="text-xl font-bold mb-2">Browse Books</h3>
                 <p class="mb-4">Explore our collection of books by category, author, or title.</p>
                 <!-- Link to book list page -->
-                <a href="{% url 'book_list' %}" class="inline-block bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">View Books</a>
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'book_list' %}" class="inline-block bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">View Books</a>
+                {% else %}
+                    <a href="{% url 'login' %}?next={% url 'book_list' %}" class="inline-block bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">Login to Browse</a>
+                {% endif %}
             </div>
 
             <!-- Feature card for borrowing books -->
@@ -101,7 +105,11 @@
                 <h3 class="text-xl font-bold mb-2">Borrow Books</h3>
                 <p class="mb-4">Borrow books easily and keep track of your due dates.</p>
                 <!-- Link to user profile page -->
-                <a href="{% url 'profile' %}" class="inline-block bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">My Profile</a>
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'profile' %}" class="inline-block bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">My Profile</a>
+                {% else %}
+                    <a href="{% url 'login' %}?next={% url 'profile' %}" class="inline-block bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">Login to Borrow</a>
+                {% endif %}
             </div>
 
             <!-- Feature card for admin dashboard -->

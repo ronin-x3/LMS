@@ -1,14 +1,6 @@
-# TODO: Make HTML Templates Look Human-Written
+# TODO: Style Buttons with Premium SaaS Design
 
-## Overview
-Refactor HTML templates in the LMS project to appear more human-written by adding comments, improving indentation, and enhancing readability.
-
-## Steps
-- [x] Read and edit main/templates/home.html: Add section comments, improve formatting, add Django template comments.
-- [x] Read and edit main/templates/book_detail.html: Add section comments, improve formatting, add Django template comments.
-- [x] Read and edit main/templates/book_list.html: Add section comments, improve formatting, add Django template comments.
-- [ ] Read and edit main/templates/login.html: Add section comments, improve formatting, add Django template comments.
-- [ ] Read and edit main/templates/profile.html: Add section comments, improve formatting, add Django template comments.
-- [ ] Read and edit main/templates/register.html: Add section comments, improve formatting, add Django template comments.
-- [ ] Read and edit main/templates/borrow.html: Add section comments, improve formatting, add Django template comments.
-- [x] Verify all changes and ensure templates still function correctly.
+- [ ] Update .form-container button styles in home.css (background, text, padding, border-radius, font, shadow, hover)
+- [ ] Update .btn styles in home.css (background, text, padding, border-radius, font, shadow, hover)
+- [ ] Update .search-form button styles in home.css (background, text, padding, border-radius, font, shadow, hover)
+- [ ] Test the updated button styles in the browser for modern, premium SaaS feel
