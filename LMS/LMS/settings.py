@@ -75,10 +75,16 @@ WSGI_APPLICATION = 'LMS.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',    # For MariaDB and MySQL
+        'NAME': 'LMS',                           # Your database name
+        'USER': 'root',                          # Your DB user
+        'PASSWORD': 'Ipadair2',       # The password you set during MariaDB setup
+        'HOST': 'localhost',                     # Usually localhost
+        'PORT': '3306',                          # Default MySQL/MariaDB port
     }
 }
+
+
 
 
 # Password validation

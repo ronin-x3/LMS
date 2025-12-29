@@ -219,7 +219,7 @@
                 </div>
 
                 <!-- Admin Dashboard Card -->
-                <div class="feature-card">
+                <div class="feature-card" {% if not request.user.is_authenticated or not request.user.is_staff %}style="display: none;"{% endif %}>
                     <div class="feature-icon">
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <defs>
@@ -238,17 +238,9 @@
                     <p class="feature-description">
                         Manage library operations, view statistics, and control all system resources efficiently.
                     </p>
-                    {% if request.user.is_authenticated and request.user.is_staff %}
-                        <a href="{% url 'admin_dashboard' %}" class="feature-link">
-                            Access Dashboard →
-                        </a>
-                    {% elif request.user.is_authenticated %}
-                        <span class="admin-only">Admin Only</span>
-                    {% else %}
-                        <a href="{% url 'login' %}" class="feature-link">
-                            Login to Access →
-                        </a>
-                    {% endif %}
+                    <a href="{% url 'admin_dashboard' %}" class="feature-link">
+                        Access Dashboard →
+                    </a>
                 </div>
             </div>
         </div>
