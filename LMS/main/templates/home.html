@@ -12,105 +12,18 @@
     <!-- Page title -->
     <title>LMS - Library Management System</title>
 
-    <!-- Include Tailwind CSS for styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
     <!-- Link to custom CSS file -->
-    <link rel="stylesheet" href="{% static 'home.css' %}">
-
-    <style>
-        /* Custom Glass Morphism and Gradient Effects */
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .neon-glow {
-            box-shadow: 0 0 20px rgba(76, 175, 80, 0.5), inset 0 0 20px rgba(76, 175, 80, 0.1);
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, #4caf50 0%, #81c784 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .smooth-transition {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .hover-lift:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .feature-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        .button-glow:hover {
-            box-shadow: 0 0 30px rgba(76, 175, 80, 0.6), inset 0 0 10px rgba(76, 175, 80, 0.2);
-            transform: scale(1.05);
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .floating-icon {
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .hero-gradient {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-gradient::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(76, 175, 80, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-
-        .hero-gradient::after {
-            content: '';
-            position: absolute;
-            bottom: -50%;
-            left: -10%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(76, 175, 80, 0.08) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(76, 175, 80, 0.05) 100%);
-            border: 1px solid rgba(76, 175, 80, 0.3);
-            backdrop-filter: blur(10px);
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 
-<body class="bg-gradient-to-br from-[#0f1419] via-[#1a1a2e] to-[#16213e] font-sans min-h-screen text-white overflow-x-hidden">
+<body class="body-bg font-sans min-h-screen text-white overflow-x-hidden">
     <!-- Navigation bar with glass morphism effect -->
-    <nav class="fixed top-0 left-0 right-0 z-50 glass-effect mx-4 mt-4 rounded-2xl">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <nav class="nav">
+        <div class="nav-container">
             <!-- Logo section -->
-            <div class="flex items-center gap-3 group cursor-pointer">
-                <!-- Animated SVG logo -->
-                <div class="relative w-10 h-10">
-                    <svg width="40" height="40" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="smooth-transition group-hover:scale-110">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="40" height="40" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
                         <defs>
                             <linearGradient id="neonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                                 <stop offset="0%" style="stop-color:#4caf50;stop-opacity:1" />
@@ -120,31 +33,30 @@
                         <polygon points="16,4 28,16 16,28 4,16" fill="url(#neonGradient)" />
                     </svg>
                 </div>
-                <!-- LMS text -->
-                <span class="text-2xl font-bold smooth-transition"><a href="{% url 'home' %}" class="transition duration-200 hover:text-[#4caf50]">LMS</a></span>
+                <span class="logo-text"><a href="{% url 'home' %}" class="logo-link">LMS</a></span>
             </div>
 
-            <!-- Center navigation links (hidden on mobile) -->
-            <ul class="hidden md:flex gap-8 absolute left-1/2 transform -translate-x-1/2">
-                <li><a href="#features" class="hover:text-[#4caf50] smooth-transition text-sm font-medium">Features</a></li>
-                <li><a href="#" class="hover:text-[#4caf50] smooth-transition text-sm font-medium">About</a></li>
-                <li><a href="#" class="hover:text-[#4caf50] smooth-transition text-sm font-medium">Contact</a></li>
+            <!-- Center navigation links -->
+            <ul class="nav-links">
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#" class="nav-link">About</a></li>
+                <li><a href="#" class="nav-link">Contact</a></li>
             </ul>
 
             <!-- Right side auth links -->
-            <div class="flex items-center gap-3">
+            <div class="auth-links">
                 {% if request.user.is_authenticated %}
-                    <a href="{% url 'profile' %}" class="hidden sm:inline-block hover:text-[#4caf50] smooth-transition text-sm font-medium">Profile</a>
-                    <a href="{% url 'logout' %}" class="px-4 py-2 rounded-lg bg-[#4caf50] hover:bg-[#45a049] text-white font-semibold smooth-transition text-sm">Logout</a>
+                    <a href="{% url 'profile' %}" class="auth-link profile-link">Profile</a>
+                    <a href="{% url 'logout' %}" class="btn logout-btn">Logout</a>
                 {% else %}
-                    <a href="{% url 'login' %}" class="hidden sm:inline-block hover:text-[#4caf50] smooth-transition text-sm font-medium">Login</a>
-                    <a href="{% url 'register' %}" class="px-4 py-2 rounded-lg bg-[#4caf50] hover:bg-[#45a049] text-white font-semibold smooth-transition text-sm">Sign Up</a>
+                    <a href="{% url 'login' %}" class="auth-link login-link">Login</a>
+                    <a href="{% url 'register' %}" class="btn signup-btn">Sign Up</a>
                 {% endif %}
             </div>
 
             <!-- Mobile menu button -->
-            <div class="md:hidden">
-                <button class="text-white focus:outline-none">
+            <div class="mobile-menu-btn">
+                <button class="mobile-menu-button">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
@@ -154,62 +66,57 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-gradient relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center">
-        <!-- Animated background elements -->
-        <div class="absolute top-20 left-10 w-72 h-72 bg-[#4caf50] rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse"></div>
-        <div class="absolute top-40 right-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse" style="animation-delay: 2s;"></div>
+    <section class="hero-section">
+        <div class="hero-content">
+            <!-- Left content -->
+            <div class="hero-left">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        Welcome to <span class="gradient-text">LMS</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Discover, borrow, and manage your favorite books with our intelligent library management system. Experience the future of reading.
+                    </p>
+                </div>
 
-        <div class="relative z-10 max-w-7xl mx-auto w-full">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <!-- Left content -->
-                <div class="space-y-8">
-                    <div class="space-y-4">
-                        <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-                            Welcome to <span class="gradient-text">LMS</span>
-                        </h1>
-                        <p class="text-xl text-gray-300 leading-relaxed">
-                            Discover, borrow, and manage your favorite books with our intelligent library management system. Experience the future of reading.
-                        </p>
-                    </div>
-
-                    <!-- CTA Buttons -->
-                    <div class="flex flex-col sm:flex-row gap-4 pt-6">
-                        {% if request.user.is_authenticated %}
-                            <a href="{% url 'book_list' %}" class="btn px-8 py-4 rounded-xl bg-gradient-to-r from-[#4caf50] to-[#81c784] text-white font-bold text-center button-glow smooth-transition hover:shadow-2xl">
-                                Browse Books
-                            </a>
-                            <a href="{% url 'profile' %}" class="btn px-8 py-4 rounded-xl glass-effect text-white font-bold text-center smooth-transition hover:bg-white/20 border-2 border-[#4caf50]/50">
-                                My Borrowed Books
-                            </a>
-                        {% else %}
-                            <a href="{% url 'login' %}" class="btn px-8 py-4 rounded-xl bg-gradient-to-r from-[#4caf50] to-[#81c784] text-white font-bold text-center button-glow smooth-transition hover:shadow-2xl">
-                                Get Started
-                            </a>
-                            <a href="{% url 'register' %}" class="btn px-8 py-4 rounded-xl glass-effect text-white font-bold text-center smooth-transition hover:bg-white/20 border-2 border-[#4caf50]/50">
+                <!-- CTA Buttons -->
+                <div class="hero-buttons">
+                    {% if request.user.is_authenticated %}
+                        <a href="{% url 'book_list' %}" class="cta-button">
+                            Browse Books
+                        </a>
+                        <a href="{% url 'profile' %}" class="secondary-button">
+                            My Borrowed Books
+                        </a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="cta-button">
+                            Get Started
+                        </a>
+                        <a href="{% url 'register' %}" class="secondary-button">
                                 Create Account
                             </a>
                         {% endif %}
                     </div>
 
                     <!-- Stats -->
-                    <div class="grid grid-cols-3 gap-6 pt-8">
-                        <div class="stat-card p-4 rounded-lg text-center">
-                            <p class="text-3xl font-bold gradient-text">2K+</p>
-                            <p class="text-sm text-gray-400">Books</p>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <p class="stat-number">2K+</p>
+                            <p class="stat-label">Books</p>
                         </div>
-                        <div class="stat-card p-4 rounded-lg text-center">
-                            <p class="text-3xl font-bold gradient-text">500+</p>
-                            <p class="text-sm text-gray-400">Members</p>
+                        <div class="stat-item">
+                            <p class="stat-number">500+</p>
+                            <p class="stat-label">Members</p>
                         </div>
-                        <div class="stat-card p-4 rounded-lg text-center">
-                            <p class="text-3xl font-bold gradient-text">10K+</p>
-                            <p class="text-sm text-gray-400">Checkouts</p>
+                        <div class="stat-item">
+                            <p class="stat-number">10K+</p>
+                            <p class="stat-label">Checkouts</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Right illustration area -->
-                <div class="hidden md:flex items-center justify-center">
+                <div class="hero-right">
                     <div class="relative w-full max-w-md h-96">
                         <!-- Floating book icon container -->
                         <div class="floating-icon absolute inset-0 flex items-center justify-center">
@@ -239,23 +146,23 @@
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="py-20 px-4 sm:px-6 lg:px-8 relative">
-        <div class="max-w-7xl mx-auto">
+    <section id="features" class="features-section">
+        <div class="features-container">
             <!-- Section heading -->
-            <div class="text-center mb-16 space-y-4">
-                <h2 class="text-4xl md:text-5xl font-bold">
+            <div class="features-header">
+                <h2 class="features-title">
                     Powerful <span class="gradient-text">Features</span>
                 </h2>
-                <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+                <p class="features-subtitle">
                     Everything you need to manage and explore your library with ease
                 </p>
             </div>
 
             <!-- Feature cards grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="features-grid">
                 <!-- Browse Books Card -->
-                <div class="feature-card p-8 rounded-2xl hover-lift smooth-transition group">
-                    <div class="mb-6 inline-block p-4 bg-gradient-to-br from-[#4caf50]/20 to-[#4caf50]/5 rounded-xl group-hover:scale-110 smooth-transition">
+                <div class="feature-card">
+                    <div class="feature-icon">
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <defs>
                                 <linearGradient id="browseGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -267,24 +174,24 @@
                             <path d="M6.5 2H20v15H6.5A2.5 2.5 0 0 1 4 14.5v-10A2.5 2.5 0 0 1 6.5 2z" stroke="url(#browseGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-bold mb-3">Browse Books</h3>
-                    <p class="text-gray-400 mb-6 leading-relaxed">
+                    <h3 class="feature-title">Browse Books</h3>
+                    <p class="feature-description">
                         Explore our extensive collection with powerful search and filtering by author, category, and title.
                     </p>
                     {% if request.user.is_authenticated %}
-                        <a href="{% url 'book_list' %}" class="inline-flex items-center text-[#4caf50] font-semibold hover:gap-2 gap-1 smooth-transition">
+                        <a href="{% url 'book_list' %}" class="feature-link">
                             Explore Now →
                         </a>
                     {% else %}
-                        <a href="{% url 'login' %}?next={% url 'book_list' %}" class="inline-flex items-center text-[#4caf50] font-semibold hover:gap-2 gap-1 smooth-transition">
+                        <a href="{% url 'login' %}?next={% url 'book_list' %}" class="feature-link">
                             Login to Browse →
                         </a>
                     {% endif %}
                 </div>
 
                 <!-- Borrow Books Card -->
-                <div class="feature-card p-8 rounded-2xl hover-lift smooth-transition group">
-                    <div class="mb-6 inline-block p-4 bg-gradient-to-br from-[#4caf50]/20 to-[#4caf50]/5 rounded-xl group-hover:scale-110 smooth-transition">
+                <div class="feature-card">
+                    <div class="feature-icon">
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <defs>
                                 <linearGradient id="borrowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -296,24 +203,24 @@
                             <path d="M12 7v5l3 2" stroke="url(#borrowGradient)" stroke-width="2" stroke-linecap="round"/>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-bold mb-3">Easy Borrowing</h3>
-                    <p class="text-gray-400 mb-6 leading-relaxed">
+                    <h3 class="feature-title">Easy Borrowing</h3>
+                    <p class="feature-description">
                         Borrow books instantly and keep track of your due dates with our smart reminder system.
                     </p>
                     {% if request.user.is_authenticated %}
-                        <a href="{% url 'profile' %}" class="inline-flex items-center text-[#4caf50] font-semibold hover:gap-2 gap-1 smooth-transition">
+                        <a href="{% url 'profile' %}" class="feature-link">
                             View My Books →
                         </a>
                     {% else %}
-                        <a href="{% url 'login' %}?next={% url 'profile' %}" class="inline-flex items-center text-[#4caf50] font-semibold hover:gap-2 gap-1 smooth-transition">
+                        <a href="{% url 'login' %}?next={% url 'profile' %}" class="feature-link">
                             Login to Borrow →
                         </a>
                     {% endif %}
                 </div>
 
                 <!-- Admin Dashboard Card -->
-                <div class="feature-card p-8 rounded-2xl hover-lift smooth-transition group">
-                    <div class="mb-6 inline-block p-4 bg-gradient-to-br from-[#4caf50]/20 to-[#4caf50]/5 rounded-xl group-hover:scale-110 smooth-transition">
+                <div class="feature-card">
+                    <div class="feature-icon">
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <defs>
                                 <linearGradient id="dashGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -327,18 +234,18 @@
                             <rect x="14" y="14" width="7" height="7" stroke="url(#dashGradient)" stroke-width="2"/>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-bold mb-3">Admin Dashboard</h3>
-                    <p class="text-gray-400 mb-6 leading-relaxed">
+                    <h3 class="feature-title">Admin Dashboard</h3>
+                    <p class="feature-description">
                         Manage library operations, view statistics, and control all system resources efficiently.
                     </p>
                     {% if request.user.is_authenticated and request.user.is_staff %}
-                        <a href="{% url 'admin_dashboard' %}" class="inline-flex items-center text-[#4caf50] font-semibold hover:gap-2 gap-1 smooth-transition">
+                        <a href="{% url 'admin_dashboard' %}" class="feature-link">
                             Access Dashboard →
                         </a>
                     {% elif request.user.is_authenticated %}
-                        <span class="inline-flex items-center text-gray-500 font-semibold">Admin Only</span>
+                        <span class="admin-only">Admin Only</span>
                     {% else %}
-                        <a href="{% url 'login' %}" class="inline-flex items-center text-[#4caf50] font-semibold hover:gap-2 gap-1 smooth-transition">
+                        <a href="{% url 'login' %}" class="feature-link">
                             Login to Access →
                         </a>
                     {% endif %}
@@ -348,21 +255,21 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="py-20 px-4 sm:px-6 lg:px-8 relative">
-        <div class="max-w-4xl mx-auto">
-            <div class="glass-effect rounded-3xl p-12 text-center space-y-6 border-2 border-[#4caf50]/30">
-                <h2 class="text-4xl font-bold">Ready to Start?</h2>
-                <p class="text-gray-300 text-lg">Join thousands of readers and start exploring our library today</p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+    <section class="cta-section">
+        <div class="cta-container">
+            <div class="cta-card">
+                <h2 class="cta-title">Ready to Start?</h2>
+                <p class="cta-subtitle">Join thousands of readers and start exploring our library today</p>
+                <div class="cta-buttons">
                     {% if request.user.is_authenticated %}
-                        <a href="{% url 'book_list' %}" class="btn px-8 py-3 rounded-xl bg-gradient-to-r from-[#4caf50] to-[#81c784] text-white font-bold button-glow smooth-transition">
+                        <a href="{% url 'book_list' %}" class="cta-primary-btn">
                             Browse Our Collection
                         </a>
                     {% else %}
-                        <a href="{% url 'register' %}" class="btn px-8 py-3 rounded-xl bg-gradient-to-r from-[#4caf50] to-[#81c784] text-white font-bold button-glow smooth-transition">
+                        <a href="{% url 'register' %}" class="cta-primary-btn">
                             Sign Up Free
                         </a>
-                        <a href="{% url 'login' %}" class="btn px-8 py-3 rounded-xl glass-effect text-white font-bold border-2 border-[#4caf50]/50 smooth-transition hover:bg-white/10">
+                        <a href="{% url 'login' %}" class="cta-secondary-btn">
                             Already a Member?
                         </a>
                     {% endif %}
@@ -372,36 +279,51 @@
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-white/10 py-12 px-4 sm:px-6 lg:px-8 mt-20">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
                 <div>
-                    <h3 class="font-bold text-lg mb-4 gradient-text">LMS</h3>
-                    <p class="text-gray-400 text-sm">Premium library management system for modern readers.</p>
+                    <h3 class="footer-brand">LMS</h3>
+                    <p class="footer-brand-desc">Premium library management system for modern readers.</p>
                 </div>
                 <div>
-                    <h4 class="font-semibold mb-4">Product</h4>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#features" class="hover:text-[#4caf50] smooth-transition">Features</a></li>
-                        <li><a href="#" class="hover:text-[#4caf50] smooth-transition">Pricing</a></li>
+                    <h4 class="footer-section-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-right: 0.5rem;">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#4caf50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Product
+                    </h4>
+                    <ul class="footer-links">
+                        <li><a href="#features" class="footer-link">Features</a></li>
+                        <li><a href="#" class="footer-link">Pricing</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-semibold mb-4">Company</h4>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-[#4caf50] smooth-transition">About</a></li>
-                        <li><a href="#" class="hover:text-[#4caf50] smooth-transition">Contact</a></li>
+                    <h4 class="footer-section-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-right: 0.5rem;">
+                            <path d="M19 21V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5m-4 0h4" stroke="#4caf50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Company
+                    </h4>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">About</a></li>
+                        <li><a href="#" class="footer-link">Contact</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-semibold mb-4">Legal</h4>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-[#4caf50] smooth-transition">Privacy</a></li>
-                        <li><a href="#" class="hover:text-[#4caf50] smooth-transition">Terms</a></li>
+                    <h4 class="footer-section-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-right: 0.5rem;">
+                            <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0 1 12 2.944a11.955 11.955 0 0 1-8.618 3.04A12.02 12.02 0 0 0 3 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke="#4caf50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Legal
+                    </h4>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">Privacy</a></li>
+                        <li><a href="#" class="footer-link">Terms</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
+            <div class="footer-bottom">
                 <p>&copy; 2025 Library Management System. All rights reserved.</p>
                 <p>Made with ❤️ for book lovers worldwide</p>
             </div>

@@ -12,63 +12,18 @@
     <!-- Page title -->
     <title>Login - LMS</title>
 
-    <!-- Include Tailwind CSS for styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
     <!-- Link to custom CSS file -->
-    <link rel="stylesheet" href="{% static 'home.css' %}">
-
-    <style>
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .gradient-text {
-            background: linear-gradient(135deg, #4caf50 0%, #81c784 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .smooth-transition {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .form-input {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            padding: 12px 16px;
-            color: white;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .form-input:focus {
-            outline: none;
-            background: rgba(255, 255, 255, 0.15);
-            border-color: #4caf50;
-            box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
-        }
-        .form-input::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
-        .button-glow {
-            background: linear-gradient(135deg, #4caf50, #81c784);
-            box-shadow: 0 0 20px rgba(76, 175, 80, 0.5);
-        }
-        .button-glow:hover {
-            box-shadow: 0 0 30px rgba(76, 175, 80, 0.8);
-            transform: translateY(-2px);
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 
-<body class="bg-gradient-to-br from-[#0f1419] via-[#1a1a2e] to-[#16213e] font-sans min-h-screen text-white">
+<body class="login-body">
     <!-- Navigation bar with glass morphism effect -->
-    <nav class="fixed top-0 left-0 right-0 z-50 glass-effect mx-4 mt-4 rounded-2xl">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <nav class="login-nav">
+        <div class="nav-container">
             <!-- Logo section -->
-            <div class="flex items-center gap-3 group cursor-pointer">
-                <div class="relative w-10 h-10">
-                    <svg width="40" height="40" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="smooth-transition group-hover:scale-110">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="40" height="40" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
                         <defs>
                             <linearGradient id="neonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                                 <stop offset="0%" style="stop-color:#4caf50;stop-opacity:1" />
@@ -78,28 +33,28 @@
                         <polygon points="16,4 28,16 16,28 4,16" fill="url(#neonGradient)" />
                     </svg>
                 </div>
-                <span class="text-2xl font-bold smooth-transition"><a href="{% url 'home' %}" class="transition duration-200 hover:text-[#4caf50]">LMS</a></span>
+                <span class="logo-text"><a href="{% url 'home' %}" class="logo-link">LMS</a></span>
             </div>
 
             <!-- Center navigation links -->
-            <ul class="hidden md:flex gap-8 absolute left-1/2 transform -translate-x-1/2">
-                <li><a href="{% url 'home' %}" class="hover:text-[#4caf50] smooth-transition text-sm font-medium">Home</a></li>
-                <li><a href="{% url 'book_list' %}" class="hover:text-[#4caf50] smooth-transition text-sm font-medium">Books</a></li>
+            <ul class="nav-links">
+                <li><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+                <li><a href="{% url 'book_list' %}" class="nav-link">Books</a></li>
             </ul>
 
             <!-- Right side auth links -->
-            <div class="flex items-center gap-3">
+            <div class="auth-links">
                 {% if request.user.is_authenticated %}
-                    <a href="{% url 'profile' %}" class="hidden sm:inline-block hover:text-[#4caf50] smooth-transition text-sm font-medium">Profile</a>
-                    <a href="{% url 'logout' %}" class="px-4 py-2 rounded-lg bg-[#4caf50] hover:bg-[#45a049] text-white font-semibold smooth-transition text-sm">Logout</a>
+                    <a href="{% url 'profile' %}" class="auth-link profile-link">Profile</a>
+                    <a href="{% url 'logout' %}" class="btn logout-btn">Logout</a>
                 {% else %}
-                    <a href="{% url 'register' %}" class="px-4 py-2 rounded-lg bg-[#4caf50] hover:bg-[#45a049] text-white font-semibold smooth-transition text-sm">Sign Up</a>
+                    <a href="{% url 'register' %}" class="btn signup-btn">Sign Up</a>
                 {% endif %}
             </div>
 
             <!-- Mobile menu button -->
-            <div class="md:hidden">
-                <button class="text-white focus:outline-none">
+            <div class="mobile-menu-btn">
+                <button class="mobile-menu-button">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
@@ -109,51 +64,51 @@
     </nav>
 
     <!-- Main content area -->
-    <main class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 flex items-center justify-center min-h-screen">
-        <div class="w-full max-w-md">
+    <main class="login-main">
+        <div class="login-form-wrapper">
             <!-- Login form container with glass effect -->
-            <div class="glass-effect rounded-3xl p-10 space-y-8">
+            <div class="login-form-container">
                 <!-- Login heading -->
-                <div class="space-y-2">
-                    <h2 class="text-4xl font-bold gradient-text">Welcome Back</h2>
-                    <p class="text-gray-400">Sign in to your library account</p>
+                <div class="login-header">
+                    <h2 class="login-title">Welcome Back</h2>
+                    <p class="login-subtitle">Sign in to your library account</p>
                 </div>
 
                 <!-- Display any Django messages (e.g., error messages) -->
                 {% if messages %}
                     {% for message in messages %}
-                        <div class="p-4 rounded-lg {% if message.tags %}bg-red-900/30 border border-red-500/50 text-red-300{% else %}bg-green-900/30 border border-green-500/50 text-green-300{% endif %}">
+                        <div class="message {% if message.tags %}error{% else %}success{% endif %}">
                             {{ message }}
                         </div>
                     {% endfor %}
                 {% endif %}
 
                 <!-- Login form -->
-                <form method="POST" class="space-y-6">
+                <form method="POST" class="login-form">
                     {% csrf_token %}
 
                     <!-- Username input field -->
-                    <div>
-                        <label for="username" class="block text-sm font-medium mb-2 text-gray-300">Username</label>
+                    <div class="form-group">
+                        <label for="username" class="form-label">Username</label>
                         <input 
                             type="text" 
                             id="username" 
                             name="username" 
                             placeholder="Enter your username"
-                            class="form-input w-full"
+                            class="form-input"
                             required
                         >
                     </div>
 
                     <!-- Password input field -->
-                    <div>
-                        <label for="password" class="block text-sm font-medium mb-2 text-gray-300">Password</label>
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
                         <input 
                             type="password" 
                             id="password" 
                             name="password" 
                             placeholder="Enter your password"
-                            class="form-input w-full"
+                            class="form-input"
                             required
                         >
                     </div>
@@ -161,23 +116,23 @@
                     <!-- Submit button -->
                     <button 
                         type="submit" 
-                        class="button-glow w-full py-3 rounded-lg text-white font-semibold smooth-transition"
+                        class="login-btn"
                     >
                         Sign In
                     </button>
                 </form>
 
                 <!-- Registration link -->
-                <div class="text-center pt-4 border-t border-white/10">
-                    <p class="text-gray-400">Don't have an account? <a href="{% url 'register' %}" class="text-[#4caf50] hover:text-[#81c784] font-semibold">Register here</a></p>
+                <div class="login-footer">
+                    <p class="register-text">Don't have an account? <a href="{% url 'register' %}" class="register-link">Register here</a></p>
                 </div>
             </div>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-white/10 py-8 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto text-center text-sm text-gray-400">
+    <footer class="login-footer">
+        <div class="footer-container">
             <p>&copy; 2025 Library Management System. All rights reserved.</p>
         </div>
     </footer>

@@ -12,62 +12,18 @@
     <!-- Page title -->
     <title>Admin Dashboard - LMS</title>
 
-    <!-- Include Tailwind CSS for styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
     <!-- Link to custom CSS file -->
-    <link rel="stylesheet" href="{% static 'home.css' %}">
-
-    <style>
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .gradient-text {
-            background: linear-gradient(135deg, #4caf50 0%, #81c784 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .smooth-transition {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .stat-card {
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(129, 199, 132, 0.05) 100%);
-            border: 1px solid rgba(76, 175, 80, 0.2);
-            backdrop-filter: blur(10px);
-        }
-        .stat-card:hover {
-            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.15);
-            transform: translateY(-2px);
-        }
-        .table-container {
-            overflow-x: auto;
-        }
-        .table-row {
-            border-b: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-        .table-row:hover {
-            background: rgba(76, 175, 80, 0.1);
-        }
-        .table-header {
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.2) 0%, rgba(76, 175, 80, 0.1) 100%);
-            color: #4caf50;
-            font-weight: 700;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 
-<body class="bg-gradient-to-br from-[#0f1419] via-[#1a1a2e] to-[#16213e] font-sans min-h-screen text-white">
+<body class="body-bg font-sans min-h-screen text-white">
     <!-- Navigation bar with glass morphism effect -->
-    <nav class="fixed top-0 left-0 right-0 z-50 glass-effect mx-4 mt-4 rounded-2xl">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <nav class="nav">
+        <div class="nav-container">
             <!-- Logo section -->
-            <div class="flex items-center gap-3 group cursor-pointer">
-                <div class="relative w-10 h-10">
-                    <svg width="40" height="40" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="smooth-transition group-hover:scale-110">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="40" height="40" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
                         <defs>
                             <linearGradient id="neonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                                 <stop offset="0%" style="stop-color:#4caf50;stop-opacity:1" />
@@ -77,29 +33,29 @@
                         <polygon points="16,4 28,16 16,28 4,16" fill="url(#neonGradient)" />
                     </svg>
                 </div>
-                <span class="text-2xl font-bold smooth-transition"><a href="{% url 'home' %}" class="transition duration-200 hover:text-[#B01AEA]">LMS</a></span>
+                <span class="logo-text"><a href="{% url 'home' %}" class="logo-link">LMS</a></span>
             </div>
 
             <!-- Center navigation links -->
-            <ul class="hidden md:flex gap-8 absolute left-1/2 transform -translate-x-1/2">
-                <li><a href="{% url 'home' %}" class="hover:text-[#4caf50] smooth-transition text-sm font-medium">Home</a></li>
-                <li><a href="{% url 'book_list' %}" class="hover:text-[#4caf50] smooth-transition text-sm font-medium">Books</a></li>
+            <ul class="nav-links">
+                <li><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+                <li><a href="{% url 'book_list' %}" class="nav-link">Books</a></li>
             </ul>
 
             <!-- Right side auth links -->
-            <div class="flex items-center gap-3">
+            <div class="auth-links">
                 {% if request.user.is_authenticated %}
-                    <a href="{% url 'profile' %}" class="hidden sm:inline-block hover:text-[#4caf50] smooth-transition text-sm font-medium">Profile</a>
-                    <a href="{% url 'logout' %}" class="px-4 py-2 rounded-lg bg-[#4caf50] hover:bg-[#45a049] text-white font-semibold smooth-transition text-sm">Logout</a>
+                    <a href="{% url 'profile' %}" class="auth-link profile-link">Profile</a>
+                    <a href="{% url 'logout' %}" class="btn logout-btn">Logout</a>
                 {% else %}
-                    <a href="{% url 'login' %}" class="hidden sm:inline-block hover:text-[#4caf50] smooth-transition text-sm font-medium">Login</a>
-                    <a href="{% url 'register' %}" class="px-4 py-2 rounded-lg bg-[#4caf50] hover:bg-[#45a049] text-white font-semibold smooth-transition text-sm">Sign Up</a>
+                    <a href="{% url 'login' %}" class="auth-link login-link">Login</a>
+                    <a href="{% url 'register' %}" class="btn signup-btn">Sign Up</a>
                 {% endif %}
             </div>
 
             <!-- Mobile menu button -->
-            <div class="md:hidden">
-                <button class="text-white focus:outline-none">
+            <div class="mobile-menu-btn">
+                <button class="mobile-menu-button">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
@@ -109,63 +65,63 @@
     </nav>
 
     <!-- Main content area -->
-    <main class="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
+    <main class="main">
+        <div class="container">
             <!-- Page header -->
-            <div class="mb-12 space-y-4">
-                <h1 class="text-4xl md:text-5xl font-bold">
+            <div class="page-header">
+                <h1 class="page-title">
                     Admin <span class="gradient-text">Dashboard</span>
                 </h1>
-                <p class="text-gray-400 text-lg">System overview and statistics</p>
+                <p class="page-subtitle">System overview and statistics</p>
             </div>
 
             <!-- Action buttons -->
-            <div class="mb-8 flex flex-wrap gap-4">
-                <a href="{% url 'admin:index' %}" class="px-6 py-3 bg-gradient-to-r from-[#4caf50] to-[#81c784] text-white font-semibold rounded-lg hover:shadow-lg smooth-transition">
+            <div class="action-buttons">
+                <a href="{% url 'admin:index' %}" class="btn admin-btn">
                     Open Django Admin
                 </a>
-                <a href="{% url 'book_list' %}" class="px-6 py-3 glass-effect text-white font-semibold rounded-lg hover:border-[#4caf50] smooth-transition">
+                <a href="{% url 'book_list' %}" class="btn books-btn">
                     View Books
                 </a>
             </div>
 
             <!-- Statistics section -->
-            <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <section class="stats-section">
                 <!-- Total Books -->
-                <div class="stat-card rounded-2xl p-8 smooth-transition">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-gray-300 font-medium">Total Books</h3>
-                        <div class="w-12 h-12 bg-[#4caf50] rounded-lg flex items-center justify-center">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <h3 class="stat-title">Total Books</h3>
+                        <div class="stat-icon">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M6.5 2H20v15H6.5A2.5 2.5 0 0 1 4 14.5v-10A2.5 2.5 0 0 1 6.5 2z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </div>
                     </div>
-                    <p class="text-4xl font-bold">{{ books|length }}</p>
-                    <p class="text-gray-400 text-sm mt-2">Books in collection</p>
+                    <p class="stat-number">{{ books|length }}</p>
+                    <p class="stat-desc">Books in collection</p>
                 </div>
 
                 <!-- Total Authors -->
-                <div class="stat-card rounded-2xl p-8 smooth-transition">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-gray-300 font-medium">Total Authors</h3>
-                        <div class="w-12 h-12 bg-[#81c784] rounded-lg flex items-center justify-center">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <h3 class="stat-title">Total Authors</h3>
+                        <div class="stat-icon">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="12" cy="8" r="4" stroke="white" stroke-width="2"/>
                                 <path d="M 6 20 Q 6 14 12 14 Q 18 14 18 20" stroke="white" stroke-width="2" stroke-linecap="round"/>
                             </svg>
                         </div>
                     </div>
-                    <p class="text-4xl font-bold">{{ authors|length }}</p>
-                    <p class="text-gray-400 text-sm mt-2">Contributors</p>
+                    <p class="stat-number">{{ authors|length }}</p>
+                    <p class="stat-desc">Contributors</p>
                 </div>
 
                 <!-- Total Categories -->
-                <div class="stat-card rounded-2xl p-8 smooth-transition">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-gray-300 font-medium">Total Categories</h3>
-                        <div class="w-12 h-12 bg-[#4caf50] rounded-lg flex items-center justify-center">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <h3 class="stat-title">Total Categories</h3>
+                        <div class="stat-icon">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="3" y="3" width="7" height="7" stroke="white" stroke-width="2"/>
                                 <rect x="14" y="3" width="7" height="7" stroke="white" stroke-width="2"/>
@@ -174,52 +130,52 @@
                             </svg>
                         </div>
                     </div>
-                    <p class="text-4xl font-bold">{{ categories|length }}</p>
-                    <p class="text-gray-400 text-sm mt-2">Genres</p>
+                    <p class="stat-number">{{ categories|length }}</p>
+                    <p class="stat-desc">Genres</p>
                 </div>
 
                 <!-- Total Borrow Records -->
-                <div class="stat-card rounded-2xl p-8 smooth-transition">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-gray-300 font-medium">Active Borrows</h3>
-                        <div class="w-12 h-12 bg-[#81c784] rounded-lg flex items-center justify-center">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <h3 class="stat-title">Active Borrows</h3>
+                        <div class="stat-icon">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </div>
                     </div>
-                    <p class="text-4xl font-bold">{{ borrow_records|length }}</p>
-                    <p class="text-gray-400 text-sm mt-2">Borrow records</p>
+                    <p class="stat-number">{{ borrow_records|length }}</p>
+                    <p class="stat-desc">Borrow records</p>
                 </div>
             </section>
 
             <!-- Books section -->
-            <section class="mb-12">
-                <div class="mb-6">
-                    <h2 class="text-3xl font-bold">
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">
                         <span class="gradient-text">Books</span> Collection
                     </h2>
                 </div>
-                <div class="glass-effect rounded-3xl overflow-hidden">
+                <div class="glass-container">
                     {% if books %}
                         <div class="table-container">
-                            <table class="w-full">
+                            <table class="table">
                                 <thead>
                                     <tr class="table-header">
-                                        <th class="px-6 py-4 text-left">Title</th>
-                                        <th class="px-6 py-4 text-left">Author</th>
-                                        <th class="px-6 py-4 text-left">Category</th>
-                                        <th class="px-6 py-4 text-center">Copies Available</th>
+                                        <th class="table-th">Title</th>
+                                        <th class="table-th">Author</th>
+                                        <th class="table-th">Category</th>
+                                        <th class="table-th center">Copies Available</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for book in books %}
                                         <tr class="table-row">
-                                            <td class="px-6 py-4 font-medium">{{ book.title }}</td>
-                                            <td class="px-6 py-4 text-gray-300">{{ book.author.name }}</td>
-                                            <td class="px-6 py-4 text-gray-300">{{ book.category.name }}</td>
-                                            <td class="px-6 py-4 text-center">
-                                                <span class="px-3 py-1 bg-[#4caf50] rounded-full text-sm font-semibold">{{ book.copies_available }}</span>
+                                            <td class="table-td">{{ book.title }}</td>
+                                            <td class="table-td">{{ book.author.name }}</td>
+                                            <td class="table-td">{{ book.category.name }}</td>
+                                            <td class="table-td center">
+                                                <span class="copies-badge">{{ book.copies_available }}</span>
                                             </td>
                                         </tr>
                                     {% endfor %}
@@ -227,7 +183,7 @@
                             </table>
                         </div>
                     {% else %}
-                        <div class="p-12 text-center text-gray-400">
+                        <div class="no-data">
                             <p>No books found in the system.</p>
                         </div>
                     {% endif %}
@@ -235,38 +191,38 @@
             </section>
 
             <!-- Authors section -->
-            <section class="mb-12">
-                <div class="mb-6">
-                    <h2 class="text-3xl font-bold">
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">
                         <span class="gradient-text">Authors</span> Registry
                     </h2>
                 </div>
-                <div class="glass-effect rounded-3xl overflow-hidden">
+                <div class="glass-container">
                     {% if authors %}
                         <div class="table-container">
-                            <table class="w-full">
+                            <table class="table">
                                 <thead>
                                     <tr class="table-header">
-                                        <th class="px-6 py-4 text-left">Name</th>
-                                        <th class="px-6 py-4 text-left">Bio</th>
+                                        <th class="table-th">Name</th>
+                                        <th class="table-th">Bio</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for author in authors %}
                                         <tr class="table-row">
-                                            <td class="px-6 py-4 font-medium">{{ author.name }}</td>
-                                            <td class="px-6 py-4 text-gray-300">{{ author.bio }}</td>
+                                            <td class="table-td">{{ author.name }}</td>
+                                            <td class="table-td">{{ author.bio }}</td>
                                         </tr>
                                     {% empty %}
                                         <tr>
-                                            <td colspan="2" class="px-6 py-4 text-center">No authors found.</td>
+                                            <td colspan="2" class="table-td center">No authors found.</td>
                                         </tr>
                                     {% endfor %}
                                 </tbody>
                             </table>
                         </div>
                     {% else %}
-                        <div class="p-12 text-center text-gray-400">
+                        <div class="no-data">
                             <p>No authors found in the system.</p>
                         </div>
                     {% endif %}
@@ -274,36 +230,36 @@
             </section>
 
             <!-- Categories section -->
-            <section class="mb-12">
-                <div class="mb-6">
-                    <h2 class="text-3xl font-bold">
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">
                         <span class="gradient-text">Categories</span> List
                     </h2>
                 </div>
-                <div class="glass-effect rounded-3xl overflow-hidden">
+                <div class="glass-container">
                     {% if categories %}
                         <div class="table-container">
-                            <table class="w-full">
+                            <table class="table">
                                 <thead>
                                     <tr class="table-header">
-                                        <th class="px-6 py-4 text-left">Category Name</th>
+                                        <th class="table-th">Category Name</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for category in categories %}
                                         <tr class="table-row">
-                                            <td class="px-6 py-4 font-medium">{{ category.name }}</td>
+                                            <td class="table-td">{{ category.name }}</td>
                                         </tr>
                                     {% empty %}
                                         <tr>
-                                            <td class="px-6 py-4 text-center">No categories found.</td>
+                                            <td class="table-td center">No categories found.</td>
                                         </tr>
                                     {% endfor %}
                                 </tbody>
                             </table>
                         </div>
                     {% else %}
-                        <div class="p-12 text-center text-gray-400">
+                        <div class="no-data">
                             <p>No categories found in the system.</p>
                         </div>
                     {% endif %}
@@ -313,9 +269,9 @@
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-white/10 py-8 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto text-center text-sm text-gray-400">
-            <p>&copy; 2025 Library Management System. All rights reserved.</p>
+    <footer class="footer">
+        <div class="footer-container">
+            <p class="footer-text">&copy; 2025 Library Management System. All rights reserved.</p>
         </div>
     </footer>
 </body>

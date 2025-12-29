@@ -12,48 +12,18 @@
     <!-- Page title -->
     <title>Profile - LMS</title>
 
-    <!-- Include Tailwind CSS for styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
     <!-- Link to custom CSS file -->
-    <link rel="stylesheet" href="{% static 'home.css' %}">
-
-    <style>
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .gradient-text {
-            background: linear-gradient(135deg, #4caf50 0%, #81c784 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .smooth-transition {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .book-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-        .book-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 30px rgba(76, 175, 80, 0.2);
-            border-color: rgba(76, 175, 80, 0.4);
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 
-<body class="bg-gradient-to-br from-[#0f1419] via-[#1a1a2e] to-[#16213e] font-sans min-h-screen text-white">
+<body class="profile-body">
     <!-- Navigation bar with glass morphism effect -->
-    <nav class="fixed top-0 left-0 right-0 z-50 glass-effect mx-4 mt-4 rounded-2xl">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <nav class="profile-nav">
+        <div class="nav-container">
             <!-- Logo section -->
-            <div class="flex items-center gap-3 group cursor-pointer">
-                <div class="relative w-10 h-10">
-                    <svg width="40" height="40" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="smooth-transition group-hover:scale-110">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="40" height="40" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
                         <defs>
                             <linearGradient id="neonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                                 <stop offset="0%" style="stop-color:#4caf50;stop-opacity:1" />
@@ -63,29 +33,29 @@
                         <polygon points="16,4 28,16 16,28 4,16" fill="url(#neonGradient)" />
                     </svg>
                 </div>
-                <span class="text-2xl font-bold smooth-transition"><a href="{% url 'home' %}" class="transition duration-200 hover:text-[#4caf50]">LMS</a></span>
+                <span class="logo-text"><a href="{% url 'home' %}" class="logo-link">LMS</a></span>
             </div>
 
             <!-- Center navigation links -->
-            <ul class="hidden md:flex gap-8 absolute left-1/2 transform -translate-x-1/2">
-                <li><a href="{% url 'home' %}" class="hover:text-[#4caf50] smooth-transition text-sm font-medium">Home</a></li>
-                <li><a href="{% url 'book_list' %}" class="hover:text-[#4caf50] smooth-transition text-sm font-medium">Books</a></li>
+            <ul class="nav-links">
+                <li><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+                <li><a href="{% url 'book_list' %}" class="nav-link">Books</a></li>
             </ul>
 
             <!-- Right side auth links -->
-            <div class="flex items-center gap-3">
+            <div class="auth-links">
                 {% if request.user.is_authenticated %}
-                    <a href="{% url 'profile' %}" class="hidden sm:inline-block hover:text-[#4caf50] smooth-transition text-sm font-medium">Profile</a>
-                    <a href="{% url 'logout' %}" class="px-4 py-2 rounded-lg bg-[#4caf50] hover:bg-[#45a049] text-white font-semibold smooth-transition text-sm">Logout</a>
+                    <a href="{% url 'profile' %}" class="auth-link profile-link">Profile</a>
+                    <a href="{% url 'logout' %}" class="btn logout-btn">Logout</a>
                 {% else %}
-                    <a href="{% url 'login' %}" class="hidden sm:inline-block hover:text-[#4caf50] smooth-transition text-sm font-medium">Login</a>
-                    <a href="{% url 'register' %}" class="px-4 py-2 rounded-lg bg-[#4caf50] hover:bg-[#45a049] text-white font-semibold smooth-transition text-sm">Sign Up</a>
+                    <a href="{% url 'login' %}" class="auth-link login-link">Login</a>
+                    <a href="{% url 'register' %}" class="btn signup-btn">Sign Up</a>
                 {% endif %}
             </div>
 
             <!-- Mobile menu button -->
-            <div class="md:hidden">
-                <button class="text-white focus:outline-none">
+            <div class="mobile-menu-btn">
+                <button class="mobile-menu-button">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
@@ -95,69 +65,69 @@
     </nav>
 
     <!-- Main content area -->
-    <main class="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
+    <main class="profile-main">
+        <div class="container">
             <!-- Page header -->
-            <div class="mb-12 space-y-4">
-                <h1 class="text-4xl md:text-5xl font-bold">
+            <div class="profile-header">
+                <h1 class="page-title">
                     Your <span class="gradient-text">Profile</span>
                 </h1>
-                <p class="text-gray-400 text-lg">Manage your borrowed books and account</p>
+                <p class="page-subtitle">Manage your borrowed books and account</p>
             </div>
 
             <!-- Profile section -->
-            <div class="mb-12 glass-effect rounded-3xl p-8">
-                <div class="flex items-center gap-6">
-                    <div class="w-20 h-20 bg-gradient-to-br from-[#4caf50] to-[#81c784] rounded-full flex items-center justify-center text-3xl font-bold">
+            <div class="profile-info">
+                <div class="profile-avatar-section">
+                    <div class="profile-avatar">
                         {{ request.user.username|first|upper }}
                     </div>
-                    <div>
-                        <h2 class="text-3xl font-bold">{{ request.user.username }}</h2>
-                        <p class="text-gray-400 mt-1">{{ request.user.email }}</p>
-                        <p class="text-gray-500 text-sm mt-2">Member since {{ request.user.date_joined|date:"M Y" }}</p>
+                    <div class="profile-details">
+                        <h2 class="profile-name">{{ request.user.username }}</h2>
+                        <p class="profile-email">{{ request.user.email }}</p>
+                        <p class="profile-joined">Member since {{ request.user.date_joined|date:"M Y" }}</p>
                     </div>
                 </div>
             </div>
 
             <!-- Borrowed books section -->
-            <div>
-                <h3 class="text-3xl font-bold mb-8">
+            <div class="borrowed-books">
+                <h3 class="borrowed-title">
                     Borrowed <span class="gradient-text">Books</span>
                 </h3>
 
                 <!-- Conditional display of borrowed books list -->
                 {% if borrowed_books %}
                     <!-- List of borrowed books -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="borrowed-grid">
                         {% for record in borrowed_books %}
                             <!-- Individual book item with return button -->
-                            <div class="book-card p-6 rounded-2xl smooth-transition">
-                                <div class="mb-6">
-                                    <h4 class="text-xl font-bold mb-2 text-white">{{ record.book.title }}</h4>
-                                    <p class="text-gray-400">by {{ record.book.author.name }}</p>
+                            <div class="book-card">
+                                <div class="book-info">
+                                    <h4 class="book-title">{{ record.book.title }}</h4>
+                                    <p class="book-author">by {{ record.book.author.name }}</p>
                                 </div>
                                 
-                                <div class="space-y-3 mb-6 text-sm">
-                                    <p class="text-gray-400"><strong class="text-[#4caf50]">Borrowed:</strong> {{ record.borrow_date|date:"M d, Y" }}</p>
-                                    <p class="text-gray-400"><strong class="text-[#4caf50]">Due Date:</strong> 
-                                        <span class="{% if record.is_overdue %}text-red-400 font-bold{% else %}text-[#4caf50]{% endif %}">
+                                <div class="borrow-details">
+                                    <p class="borrow-date"><strong class="detail-label">Borrowed:</strong> {{ record.borrow_date|date:"M d, Y" }}</p>
+                                    <p class="due-date"><strong class="detail-label">Due Date:</strong> 
+                                        <span class="{% if record.is_overdue %}overdue{% else %}due{% endif %}">
                                             {{ record.due_date|date:"M d, Y" }}
                                         </span>
                                     </p>
                                     {% if record.is_overdue %}
-                                        <p class="text-red-400 font-semibold">⚠️ Overdue</p>
+                                        <p class="overdue-warning">⚠️ Overdue</p>
                                     {% endif %}
                                 </div>
 
                                 <!-- Return book link -->
-                                <a href="{% url 'return_book' record.pk %}" class="w-full block text-center px-4 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold rounded-lg hover:shadow-lg smooth-transition">Return Book</a>
+                                <a href="{% url 'return_book' record.pk %}" class="return-btn">Return Book</a>
                             </div>
                         {% endfor %}
                     </div>
                 {% else %}
                     <!-- Message if no borrowed books -->
-                    <div class="glass-effect rounded-3xl p-12 text-center">
-                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="mx-auto mb-4 opacity-50">
+                    <div class="no-books">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="no-books-icon">
                             <defs>
                                 <linearGradient id="emptyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                                     <stop offset="0%" style="stop-color:#4caf50;stop-opacity:1" />
@@ -167,9 +137,9 @@
                             <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="url(#emptyGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M6.5 2H20v15H6.5A2.5 2.5 0 0 1 4 14.5v-10A2.5 2.5 0 0 1 6.5 2z" stroke="url(#emptyGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        <p class="text-gray-400 text-lg">You haven't borrowed any books yet.</p>
-                        <p class="text-gray-500 mt-2">Start exploring our collection today!</p>
-                        <a href="{% url 'book_list' %}" class="inline-block mt-6 px-8 py-3 bg-gradient-to-r from-[#4caf50] to-[#81c784] text-white font-semibold rounded-lg hover:shadow-lg smooth-transition">
+                        <p class="no-books-text">You haven't borrowed any books yet.</p>
+                        <p class="no-books-subtext">Start exploring our collection today!</p>
+                        <a href="{% url 'book_list' %}" class="browse-btn">
                             Browse Books
                         </a>
                     </div>
@@ -179,9 +149,39 @@
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-white/10 py-12 px-4 sm:px-6 lg:px-8 mt-20">
-        <div class="max-w-7xl mx-auto text-center text-sm text-gray-400">
-            <p>&copy; 2025 Library Management System. All rights reserved.</p>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div>
+                    <h3 class="footer-brand">LMS</h3>
+                    <p class="footer-brand-desc">Premium library management system for modern readers.</p>
+                </div>
+                <div>
+                    <h4 class="footer-section-title">Product</h4>
+                    <ul class="footer-links">
+                        <li><a href="#features" class="footer-link">Features</a></li>
+                        <li><a href="#" class="footer-link">Pricing</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-section-title">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">About</a></li>
+                        <li><a href="#" class="footer-link">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-section-title">Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">Privacy</a></li>
+                        <li><a href="#" class="footer-link">Terms</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Library Management System. All rights reserved.</p>
+                <p>Made with ❤️ for book lovers worldwide</p>
+            </div>
         </div>
     </footer>
 </body>
