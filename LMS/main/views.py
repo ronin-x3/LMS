@@ -39,7 +39,7 @@ def user_logout(request):
 
 @login_required
 def book_list(request):
-    query = request.GET.get('q')
+    query = request.GET.get('q', '')
     if query:
         books = Book.objects.filter(
             Q(title__icontains=query) |
