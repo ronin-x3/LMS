@@ -1,0 +1,175 @@
+<!-- Load static files for CSS -->
+{% load static %}
+
+<!-- Standard HTML5 document structure -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic meta tags for character encoding and responsiveness -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Dynamic page title -->
+    <title>About Us - LMS</title>
+
+    <!-- Link to custom CSS file -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body class="body-bg font-sans min-h-screen text-white overflow-x-hidden">
+    <!-- Navigation bar with glass morphism effect -->
+    <nav class="nav">
+        <div class="nav-container">
+            <!-- Logo section -->
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="40" height="40" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
+                        <defs>
+                            <linearGradient id="neonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#4caf50;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#81c784;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <polygon points="16,4 28,16 16,28 4,16" fill="url(#neonGradient)" />
+                    </svg>
+                </div>
+                <span class="logo-text"><a href="{% url 'home' %}" class="logo-link">LMS</a></span>
+            </div>
+
+            <!-- Center navigation links -->
+            <ul class="nav-links">
+                <li><a href="{% url 'home' %}#features" class="nav-link">Features</a></li>
+                <li><a href="{% url 'about' %}" class="nav-link">About</a></li>
+            </ul>
+
+            <!-- Right side auth links -->
+            <div class="auth-links">
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'profile' %}" class="auth-link profile-link">Profile</a>
+                    <a href="{% url 'logout' %}" class="btn logout-btn">Logout</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="auth-link login-link">Login</a>
+                    <a href="{% url 'register' %}" class="btn signup-btn">Sign Up</a>
+                {% endif %}
+            </div>
+
+            <!-- Mobile menu button -->
+            <div class="mobile-menu-btn">
+                <button class="mobile-menu-button">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="about-main">
+        <div class="about-container">
+            <!-- About Header -->
+            <section class="about-header">
+                <div class="about-hero">
+                    <h1 class="about-title">About Us</h1>
+                    <p class="about-subtitle">Learn more about our Library Management System</p>
+                </div>
+            </section>
+
+            <!-- About Content -->
+            <section class="about-content">
+                <div class="about-card">
+                    <h2 class="about-heading">The Library Management System</h2>
+                    <p class="about-text">
+                        The Library Management System is a school project developed to simplify and automate the management of library operations. This system helps in organizing books, managing user records, and tracking book issuance and returns efficiently.
+                    </p>
+                </div>
+
+                <div class="about-card">
+                    <h2 class="about-heading">Our Objective</h2>
+                    <p class="about-text">
+                        The main objective of this project is to reduce manual work and improve accuracy in maintaining library data. By using this system, librarians and students can easily access book information, check availability, and manage records in a structured manner.
+                    </p>
+                </div>
+
+                <div class="about-card">
+                    <h2 class="about-heading">User-Friendly Design</h2>
+                    <p class="about-text">
+                        This project is designed with a user-friendly interface to ensure ease of use for both administrators and users. It supports basic library functions such as adding new books, issuing and returning books, and maintaining student records.
+                    </p>
+                </div>
+
+                <div class="about-card">
+                    <h2 class="about-heading">Practical Application</h2>
+                    <p class="about-text">
+                        The Library Management System demonstrates the practical application of database management and software development concepts learned during the course. It aims to provide a reliable and efficient solution for modern library management.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Call to Action -->
+            <section class="cta-section">
+                <div class="cta-container">
+                    <div class="cta-card">
+                        <h2 class="cta-title">Ready to Explore?</h2>
+                        <p class="cta-subtitle">Start using our Library Management System today</p>
+                        <div class="cta-buttons">
+                            {% if request.user.is_authenticated %}
+                                <a href="{% url 'book_list' %}" class="cta-primary-btn">
+                                    Browse Our Collection
+                                </a>
+                            {% else %}
+                                <a href="{% url 'register' %}" class="cta-primary-btn">
+                                    Sign Up Free
+                                </a>
+                                <a href="{% url 'login' %}" class="cta-secondary-btn">
+                                    Already a Member?
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div>
+                    <h3 class="footer-brand">LMS</h3>
+                    <p class="footer-brand-desc">Premium library management system for modern readers.</p>
+                </div>
+                <div>
+                    <h4 class="footer-section-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-right: 0.5rem;">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#4caf50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Product
+                    </h4>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'home' %}#features" class="footer-link">Features</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-section-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-right: 0.5rem;">
+                            <path d="M19 21V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5m-4 0h4" stroke="#4caf50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Company
+                    </h4>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'about' %}" class="footer-link">About</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Library Management System. All rights reserved.</p>
+                <p>Made with ❤️ for book lovers worldwide</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

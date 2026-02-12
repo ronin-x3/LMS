@@ -10,6 +10,9 @@ from .models import Book, Author, Category, BorrowRecord
 def home(request):
     return render(request, 'home.html')
 
+def about(request):
+    return render(request, 'about.html')
+
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -53,19 +56,23 @@ def book_list(request):
 @login_required
 def book_detail(request, pk):
     book = get_object_or_404(Book, pk=pk)
-    can_borrow = book.copies_available > 0 and not BorrowRecord.objects.filter(user=request.user, book=book, is_returned=False).exists()
+    # Refresh from database to ensure latest copies_available
+    book.refresh_from_db()
+    can_borrow = book.copies_available > 0
     return render(request, 'book_detail.html', {'book': book, 'can_borrow': can_borrow})
 
 @login_required
 def borrow_book(request, pk):
     book = get_object_or_404(Book, pk=pk)
-    if book.copies_available > 0 and not BorrowRecord.objects.filter(user=request.user, book=book, is_returned=False).exists():
+    book.refresh_from_db()  # Ensure we have the latest data
+    
+    if book.copies_available > 0:
         BorrowRecord.objects.create(user=request.user, book=book)
         book.copies_available -= 1
         book.save()
         messages.success(request, f'You have borrowed "{book.title}"')
     else:
-        messages.error(request, 'Cannot borrow this book')
+        messages.error(request, f'Sorry, no copies of "{book.title}" are currently available')
     return redirect('book_detail', pk=pk)
 
 @login_required

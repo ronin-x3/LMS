@@ -39,8 +39,7 @@
             <!-- Center navigation links -->
             <ul class="nav-links">
                 <li><a href="#features" class="nav-link">Features</a></li>
-                <li><a href="#" class="nav-link">About</a></li>
-                <li><a href="#" class="nav-link">Contact</a></li>
+                <li><a href="{% url 'about' %}" class="nav-link">About</a></li>
             </ul>
 
             <!-- Right side auth links -->
@@ -287,7 +286,6 @@
                     </h4>
                     <ul class="footer-links">
                         <li><a href="#features" class="footer-link">Features</a></li>
-                        <li><a href="#" class="footer-link">Pricing</a></li>
                     </ul>
                 </div>
                 <div>
@@ -298,22 +296,10 @@
                         Company
                     </h4>
                     <ul class="footer-links">
-                        <li><a href="#" class="footer-link">About</a></li>
-                        <li><a href="#" class="footer-link">Contact</a></li>
+                        <li><a href="{% url 'about' %}" class="footer-link">About</a></li>
                     </ul>
                 </div>
-                <div>
-                    <h4 class="footer-section-title">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-right: 0.5rem;">
-                            <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0 1 12 2.944a11.955 11.955 0 0 1-8.618 3.04A12.02 12.02 0 0 0 3 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke="#4caf50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        Legal
-                    </h4>
-                    <ul class="footer-links">
-                        <li><a href="#" class="footer-link">Privacy</a></li>
-                        <li><a href="#" class="footer-link">Terms</a></li>
-                    </ul>
-                </div>
+
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 Library Management System. All rights reserved.</p>

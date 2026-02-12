@@ -24,12 +24,28 @@
     </header>
     <main class="borrow-main">
         <div class="borrow-container">
-            <h2 class="borrow-title">Book Borrowed Successfully</h2>
-            <p class="borrow-message">You have successfully borrowed the book.</p>
-            <div class="borrow-actions">
-                <a href="{% url 'book_list' %}" class="btn back-btn">Back to Books</a>
-                <a href="{% url 'profile' %}" class="btn profile-btn">View Profile</a>
-            </div>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            {% if 'successfully' in messages.0.message|default:'' or 'borrowed' in messages.0.message|default:'' %}
+                <h2 class="borrow-title">Book Borrowed Successfully</h2>
+                <p class="borrow-message">You have successfully borrowed the book.</p>
+                <div class="borrow-actions">
+                    <a href="{% url 'book_list' %}" class="btn back-btn">Back to Books</a>
+                    <a href="{% url 'profile' %}" class="btn profile-btn">View Profile</a>
+                </div>
+            {% else %}
+                <h2 class="borrow-title">Cannot Borrow Book</h2>
+                <p class="borrow-message">This book is not available for borrowing at this time.</p>
+                <div class="borrow-actions">
+                    <a href="{% url 'book_list' %}" class="btn back-btn">Back to Books</a>
+                </div>
+            {% endif %}
         </div>
     </main>
     <footer class="footer">
@@ -43,21 +59,12 @@
                     <h4 class="footer-section-title">Product</h4>
                     <ul class="footer-links">
                         <li><a href="#features" class="footer-link">Features</a></li>
-                        <li><a href="#" class="footer-link">Pricing</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="footer-section-title">Company</h4>
                     <ul class="footer-links">
                         <li><a href="#" class="footer-link">About</a></li>
-                        <li><a href="#" class="footer-link">Contact</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="footer-section-title">Legal</h4>
-                    <ul class="footer-links">
-                        <li><a href="#" class="footer-link">Privacy</a></li>
-                        <li><a href="#" class="footer-link">Terms</a></li>
                     </ul>
                 </div>
             </div>
