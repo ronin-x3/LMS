@@ -96,8 +96,6 @@ def return_book(request, pk):
     borrow_record.is_returned = True
     borrow_record.return_date = timezone.now()
     borrow_record.save()
-    borrow_record.book.copies_available += 1
-    borrow_record.book.save()
     messages.success(request, f'You have returned "{borrow_record.book.title}"')
     return redirect('profile')
 
@@ -326,9 +324,6 @@ def approve_borrow_request(request, pk):
 
     borrow_record.is_approved = True
     borrow_record.save()
-
-    book.copies_available -= 1
-    book.save()
 
     messages.success(request, f"Borrow request for '{book.title}' has been approved.")
     return redirect('incoming_borrow_requests')
